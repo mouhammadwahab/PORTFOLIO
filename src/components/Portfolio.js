@@ -1,5 +1,5 @@
 import React from 'react';
-import { BiCode, BiMobile, BiGlobe } from 'react-icons/bi';
+import { BiMobile, BiGlobe } from 'react-icons/bi';
 import swiftImg from '../assets/img/LOGO.png';
 import worEatsImg from '../assets/img/wor-eats.jpg';
 import smartSolarImg from '../assets/img/smart-solar.png';
