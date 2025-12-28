@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6be8f5b4.css",
+    "main.js": "/static/js/main.8082e64b.js",
+    "static/js/453.1407b060.chunk.js": "/static/js/453.1407b060.chunk.js",
+    "static/media/eye-doc.jpg": "/static/media/eye-doc.119449acab491993e95b.jpg",
+    "static/media/LOGO.png": "/static/media/LOGO.699847849edbe2085776.png",
+    "static/media/Profile1.jpg": "/static/media/Profile1.df1289b3fd32d510b99f.jpg",
+    "static/media/Profile2.jpg": "/static/media/Profile2.df1289b3fd32d510b99f.jpg",
+    "static/media/profile.webp": "/static/media/profile.2d7473718d49d2a285e3.webp",
+    "static/media/bootstrap-icons.woff?": "/static/media/bootstrap-icons.1295669cd4e305c97f2c.woff",
+    "static/media/bootstrap-icons.woff2?": "/static/media/bootstrap-icons.92ea18a81d737146ff04.woff2",
+    "static/media/wor-eats.jpg": "/static/media/wor-eats.ee88ae8e1681bb6ec138.jpg",
+    "static/media/fast-foodies.jpg": "/static/media/fast-foodies.48d59211fa4909074425.jpg",
+    "static/media/smart-solar.png": "/static/media/smart-solar.f8a111d8db2c6372b921.png",
+    "static/media/muslim-dating.png": "/static/media/muslim-dating.6dac1cdd4faa5e26fd2b.png",
+    "index.html": "/index.html",
+    "main.6be8f5b4.css.map": "/static/css/main.6be8f5b4.css.map",
+    "main.8082e64b.js.map": "/static/js/main.8082e64b.js.map",
+    "453.1407b060.chunk.js.map": "/static/js/453.1407b060.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6be8f5b4.css",
+    "static/js/main.8082e64b.js"
+  ]
+}
