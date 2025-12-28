@@ -61,7 +61,7 @@ const Header = () => {
         <a href="https://www.instagram.com/mouhammad_wahab/" className="instagram" target="_blank" rel="noreferrer">
           <FaInstagram />
         </a>
-        <a href="https://github.com/WahabOnRock" className="github" target="_blank" rel="noreferrer">
+        <a href="https://github.com/mouhammadwahab" className="github" target="_blank" rel="noreferrer">
           <FaGithub />
         </a>
         <a href="https://www.linkedin.com/in/muhammad-wahab-b88005330/" className="linkedin" target="_blank" rel="noreferrer">
