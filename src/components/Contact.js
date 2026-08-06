@@ -1,6 +1,8 @@
-import React, { useState, useRef } from 'react';
-import { BiMap, BiPhone, BiEnvelope } from 'react-icons/bi';
+import React, { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { BiEnvelope, BiMap, BiPhone } from 'react-icons/bi';
 import emailjs from '@emailjs/browser';
+import { profile } from '../data/profile';
 
 const Contact = () => {
   const form = useRef();
@@ -14,36 +16,23 @@ const Contact = () => {
     setErrorMessage('');
     setSuccessMessage('');
 
-    // IMPORTANT: Replace these values with your actual EmailJS credentials
-    // 1. Go to https://www.emailjs.com/ and create an account
-    // 2. Add a new Email Service (like Gmail, Outlook, etc.)
-    // 3. Create an Email Template with variables: {{user_name}}, {{user_email}}, {{subject}}, {{message}}
-    // 4. Get your Service ID, Template ID, and Public Key from your EmailJS dashboard
-    emailjs.sendForm(
-      'service_bxlu5vx', // Replace with your EmailJS service ID
-      'template_szrjjnc', // Replace with your EmailJS template ID
-      form.current,
-      'DCKC8BFfX7t0gQ_jE' // Replace with your EmailJS public key
-    )
+    emailjs
+      .sendForm('service_bxlu5vx', 'template_szrjjnc', form.current, 'DCKC8BFfX7t0gQ_jE')
       .then(() => {
-        // First email sent successfully
-        // Now send the auto-reply
         const autoReplyParams = {
           user_name: form.current.user_name.value,
           user_email: form.current.user_email.value,
           subject: form.current.subject.value,
-          date: new Date().toLocaleString()
+          date: new Date().toLocaleString(),
         };
-        
         return emailjs.send(
-          'service_bxlu5vx', // Use the same service ID
-          'template_cv5jt4d', // Replace with your auto-reply template ID
+          'service_bxlu5vx',
+          'template_cv5jt4d',
           autoReplyParams,
-          'DCKC8BFfX7t0gQ_jE' // Use the same public key
+          'DCKC8BFfX7t0gQ_jE'
         );
       })
       .then(() => {
-        // Both emails sent successfully
         setLoading(false);
         setSuccessMessage('Your message has been sent. Thank you!');
         form.current.reset();
@@ -55,79 +44,107 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="contact section">
-      <div className="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Feel free to reach out to discuss opportunities for collaboration, whether for web development, mobile app projects, or any software engineering needs. I'm always open to new challenges and excited to bring creative solutions to your technical requirements.</p>
-      </div>
+    <section id="contact" className="section">
+      <div className="container">
+        <motion.div
+          className="section-heading"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55 }}
+        >
+          <span className="eyebrow">Contact</span>
+          <h2>Let&apos;s build something</h2>
+          <p>
+            Open to collaboration on mobile apps, full-stack products, and AI automation. Reach out and
+            I&apos;ll get back to you.
+          </p>
+        </motion.div>
 
-      <div className="container" data-aos="fade-up" data-aos-delay="100">
-        <div className="row gy-4">
-          <div className="col-lg-6">
-            <div className="info-wrap">
-              <div className="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
-                <BiMap className="flex-shrink-0" style={{ marginRight: '5px' }} />
-                <div>
-                  <h3>Address</h3>
-                  <p>ZAFAR Colony Street#2, Rahim Yar Khan, Pakistan</p>
-                </div>
+        <div className="contact-grid">
+          <motion.div
+            className="contact-info"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="contact-item">
+              <div className="icon">
+                <BiMap />
               </div>
-
-              <div className="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-                <BiPhone className="flex-shrink-0" style={{ marginRight: '5px' }} />
-                <div>
-                  <h3>Call Me</h3>
-                  <p>0316-2068007, 0339-9068007</p>
-                </div>
-              </div>
-
-              <div className="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-                <BiEnvelope className="flex-shrink-0" style={{ marginRight: '5px' }} />
-                <div>
-                  <h3>Email Me</h3>
-                  <p>m.wahab2082@gmail.com</p>
-                </div>
+              <div>
+                <h3>Location</h3>
+                <p>{profile.location}</p>
               </div>
             </div>
-          </div>
-
-          <div className="col-lg-6">
-            <form ref={form} onSubmit={sendEmail} className="php-email-form" data-aos="fade-up" data-aos-delay="200">
-              <div className="row gy-4">
-                <div className="col-md-6">
-                  <label htmlFor="name-field" className="pb-2">Your Name</label>
-                  <input type="text" name="user_name" id="name-field" className="form-control" required />
-                </div>
-
-                <div className="col-md-6">
-                  <label htmlFor="email-field" className="pb-2">Your Email</label>
-                  <input type="email" className="form-control" name="user_email" id="email-field" required />
-                </div>
-
-                <div className="col-md-12">
-                  <label htmlFor="subject-field" className="pb-2">Subject</label>
-                  <input type="text" className="form-control" name="subject" id="subject-field" required />
-                </div>
-
-                <div className="col-md-12">
-                  <label htmlFor="message-field" className="pb-2">Message</label>
-                  <textarea className="form-control" name="message" rows="10" id="message-field" required></textarea>
-                </div>
-
-                <div className="col-md-12 text-center">
-                  {loading && <div className="loading d-block">Loading</div>}
-                  {errorMessage && <div className="error-message d-block">{errorMessage}</div>}
-                  {successMessage && <div className="sent-message d-block">{successMessage}</div>}
-
-                  <button type="submit" disabled={loading}>Send Message</button>
-                </div>
+            <div className="contact-item">
+              <div className="icon">
+                <BiPhone />
               </div>
-            </form>
-          </div>
+              <div>
+                <h3>Phone</h3>
+                <p>
+                  {profile.phone}
+                  <br />
+                  {profile.phoneAlt}
+                </p>
+              </div>
+            </div>
+            <div className="contact-item">
+              <div className="icon">
+                <BiEnvelope />
+              </div>
+              <div>
+                <h3>Email</h3>
+                <p>
+                  <a href={`mailto:${profile.email}`}>{profile.email}</a>
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.form
+            ref={form}
+            onSubmit={sendEmail}
+            className="contact-form"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.05 }}
+          >
+            <div className="form-row">
+              <label htmlFor="name-field">
+                Your Name
+                <input type="text" name="user_name" id="name-field" required />
+              </label>
+              <label htmlFor="email-field">
+                Your Email
+                <input type="email" name="user_email" id="email-field" required />
+              </label>
+            </div>
+            <label htmlFor="subject-field">
+              Subject
+              <input type="text" name="subject" id="subject-field" required />
+            </label>
+            <label htmlFor="message-field">
+              Message
+              <textarea name="message" id="message-field" rows="6" required />
+            </label>
+            <div
+              className={`form-status ${errorMessage ? 'error' : ''} ${successMessage ? 'success' : ''}`}
+            >
+              {loading && 'Sending…'}
+              {errorMessage}
+              {successMessage}
+            </div>
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+              Send Message
+            </button>
+          </motion.form>
         </div>
       </div>
     </section>
   );
 };
 
-export default Contact; 
+export default Contact;
