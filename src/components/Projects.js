@@ -51,16 +51,15 @@ const Projects = () => {
                 type="button"
                 key={project.id}
                 className="project-card"
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.35, delay: index * 0.03 }}
-                whileHover={{ y: -10, rotateX: 4, rotateY: -4, scale: 1.02 }}
-                style={{ perspective: 900 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25, delay: Math.min(index * 0.02, 0.2) }}
+                whileHover={{ y: -4 }}
                 onClick={() => setActive(project)}
               >
                 <div className="project-card-media">
-                  <img src={project.image} alt={project.title} loading="lazy" />
+                  <img src={project.image} alt={project.title} loading="lazy" decoding="async" />
                 </div>
                 <div className="project-card-body">
                   <div className="cat">{project.category}</div>

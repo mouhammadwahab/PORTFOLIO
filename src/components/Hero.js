@@ -3,18 +3,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-scroll';
 import { BiDownload } from 'react-icons/bi';
 import { profile } from '../data/profile';
-import portraitBust from '../assets/img/portrait-bust.png';
+import portraitBust from '../assets/img/portrait-bust.jpg';
 
 const HeroScene = lazy(() => import('./HeroScene'));
 
 const Hero = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
+  const [load3d, setLoad3d] = useState(false);
 
   useEffect(() => {
     const mqMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const mqMobile = window.matchMedia('(max-width: 768px)');
+    const mqMobile = window.matchMedia('(max-width: 900px)');
     const sync = () => {
       setReduceMotion(mqMotion.matches);
       setIsMobile(mqMobile.matches);
@@ -28,121 +29,105 @@ const Hero = () => {
     };
   }, []);
 
+  // Defer 3D until after first paint / idle so the page opens fast
+  useEffect(() => {
+    if (reduceMotion || isMobile) return undefined;
+    const idle = window.requestIdleCallback
+      ? window.requestIdleCallback(() => setLoad3d(true), { timeout: 1800 })
+      : null;
+    const t = window.setTimeout(() => setLoad3d(true), 1200);
+    return () => {
+      if (idle && window.cancelIdleCallback) window.cancelIdleCallback(idle);
+      window.clearTimeout(t);
+    };
+  }, [reduceMotion, isMobile]);
+
   useEffect(() => {
     if (reduceMotion) return undefined;
     const id = setInterval(() => {
       setRoleIndex((i) => (i + 1) % profile.roles.length);
-    }, 2600);
+    }, 2800);
     return () => clearInterval(id);
   }, [reduceMotion]);
 
-  const show3d = !reduceMotion && !isMobile;
+  const show3d = load3d && !reduceMotion && !isMobile;
 
   return (
     <section id="hero" className="hero">
       <div className="hero-vignette" aria-hidden="true" />
       <div className="hero-orb hero-orb--1" aria-hidden="true" />
       <div className="hero-orb hero-orb--2" aria-hidden="true" />
+      <div className="hero-fallback" aria-hidden="true" />
 
-      {show3d ? (
+      {show3d && (
         <div className="hero-canvas" aria-hidden="true">
-          <Suspense fallback={<div className="hero-fallback" />}>
+          <Suspense fallback={null}>
             <HeroScene />
           </Suspense>
         </div>
-      ) : (
-        <div className="hero-fallback" aria-hidden="true" />
       )}
 
       <div className="hero-content">
         <motion.div
           className="hero-copy"
-          initial={{ opacity: 0, y: 36 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.5 }}
         >
           <div className="hero-roles" aria-live="polite">
             <AnimatePresence mode="wait">
               <motion.span
                 key={profile.roles[roleIndex]}
-                initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: -10, filter: 'blur(6px)' }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
               >
                 {profile.roles[roleIndex]}
               </motion.span>
             </AnimatePresence>
           </div>
-          <motion.p
-            className="brand"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.7 }}
-          >
+          <p className="brand">
             Muhammad <em>Wahab</em>
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.65 }}
-          >
+          </p>
+          <h1>
             {profile.title} — {profile.subtitle}
-          </motion.h1>
-          <motion.p
-            className="lead"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.6 }}
-          >
+          </h1>
+          <p className="lead">
             Shipping production Flutter &amp; full-stack JavaScript products — from Firebase mobile apps
             to multi-agent AI platforms — with a builder&apos;s mindset.
-          </motion.p>
-          <motion.div
-            className="hero-ctas"
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.55 }}
-          >
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.98 }}>
-              <Link to="projects" smooth offset={-70} duration={550} className="btn btn-primary">
-                View Work
-              </Link>
-            </motion.div>
-            <motion.a
-              className="btn btn-ghost"
-              href={profile.cvUrl}
-              download
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.98 }}
-            >
+          </p>
+          <div className="hero-ctas">
+            <Link to="projects" smooth offset={-70} duration={500} className="btn btn-primary">
+              View Work
+            </Link>
+            <a className="btn btn-ghost" href={profile.cvUrl} download>
               <BiDownload /> Download CV
-            </motion.a>
-          </motion.div>
+            </a>
+          </div>
         </motion.div>
 
         <motion.div
           className="hero-portrait"
-          initial={{ opacity: 0, scale: 0.9, rotateY: -12 }}
-          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-          transition={{ duration: 0.95, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          whileHover={{ y: -8, rotateY: 4, transition: { duration: 0.35 } }}
-          style={{ transformStyle: 'preserve-3d' }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.1 }}
         >
           <div className="hero-portrait-ring" aria-hidden="true" />
-          <img src={portraitBust} alt={`${profile.name} professional portrait`} />
+          <img
+            src={portraitBust}
+            alt={`${profile.name} professional portrait`}
+            width={380}
+            height={507}
+            decoding="async"
+            fetchPriority="high"
+          />
         </motion.div>
       </div>
 
-      <motion.div
-        className="hero-scroll-hint"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        aria-hidden="true"
-      >
+      <div className="hero-scroll-hint" aria-hidden="true">
         <span />
-      </motion.div>
+      </div>
     </section>
   );
 };

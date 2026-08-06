@@ -6,7 +6,7 @@ import SectionAura from './SectionAura';
 const Skills = () => {
   return (
     <section id="skills" className="section skills-section">
-      <SectionAura variant="light" />
+      <SectionAura />
       <div className="container skills-container">
         <motion.div
           className="section-heading"
@@ -32,14 +32,14 @@ const Skills = () => {
               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: index * 0.06 }}
-              whileHover={{ y: -8, scale: 1.02 }}
+              whileHover={{ y: -4 }}
             >
               <h3>{group.title}</h3>
               <div className="skill-tags">
                 {group.items.map((item) => (
-                  <motion.span key={item} whileHover={{ scale: 1.06, backgroundColor: 'rgba(20,184,166,0.15)' }}>
+                  <span key={item}>
                     {item}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
             </motion.article>

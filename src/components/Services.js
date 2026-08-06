@@ -6,7 +6,7 @@ import SectionAura from './SectionAura';
 const Services = () => {
   return (
     <section id="services" className="section section--dark">
-      <SectionAura variant="dark" />
+      <SectionAura />
       <div className="container services-container">
         <motion.div
           className="section-heading"

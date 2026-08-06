@@ -8,12 +8,11 @@
   z-index: 50;
   display: flex;
   align-items: center;
-  transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .navbar.scrolled {
-  background: rgba(243, 245, 248, 0.86);
-  backdrop-filter: blur(14px);
+  background: rgba(243, 245, 248, 0.96);
   box-shadow: 0 8px 30px rgba(11, 18, 32, 0.08);
 }
 
@@ -186,9 +185,7 @@
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.55) !important;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.72) !important;
   box-shadow: 0 12px 40px rgba(11, 18, 32, 0.08);
 }
 
@@ -588,18 +585,16 @@
 }
 
 .skill-card {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(10px);
+  background: var(--paper);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.25rem 1.35rem;
   box-shadow: 0 10px 30px rgba(11, 18, 32, 0.04);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  transform-style: preserve-3d;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .skill-card:hover {
-  transform: translateY(-6px) rotateX(2deg);
+  transform: translateY(-4px);
   box-shadow: var(--shadow);
   border-color: rgba(20, 184, 166, 0.35);
 }
@@ -752,14 +747,12 @@
 }
 
 .project-card {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
+  background: var(--paper);
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
   cursor: pointer;
-  transform-style: preserve-3d;
-  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
   text-align: left;
   padding: 0;
   width: 100%;
@@ -768,7 +761,7 @@
 }
 
 .project-card:hover {
-  box-shadow: 0 22px 50px rgba(11, 18, 32, 0.14);
+  box-shadow: 0 16px 36px rgba(11, 18, 32, 0.1);
   border-color: rgba(20, 184, 166, 0.3);
 }
 

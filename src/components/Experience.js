@@ -8,7 +8,7 @@ import SectionAura from './SectionAura';
 const Experience = () => {
   return (
     <section id="experience" className="section section--dark">
-      <SectionAura variant="dark" />
+      <SectionAura />
       <div className="container experience-container">
         <motion.div
           className="section-heading"

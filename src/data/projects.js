@@ -1,16 +1,16 @@
 import smartSolarImg from '../assets/img/smart-solar.png';
 import foodDeliveryImg from '../assets/img/fast-foodies.jpg';
-import shopItImg from '../assets/img/projects/shop-it.png';
-import swiftDriveImg from '../assets/img/LOGO.png';
+import shopItImg from '../assets/img/projects/shop-it.jpg';
+import swiftDriveImg from '../assets/img/swift-drive.jpg';
 import conxImg from '../assets/img/conx logo.png';
-import aiSalesImg from '../assets/img/projects/ai-sales.png';
-import posImg from '../assets/img/projects/pos-system.png';
+import aiSalesImg from '../assets/img/projects/ai-sales.jpg';
+import posImg from '../assets/img/projects/pos-system.jpg';
 import onlineStoreImg from '../assets/img/wor-eats.jpg';
 import datingImg from '../assets/img/muslim-dating.png';
-import lmsImg from '../assets/img/projects/lms-portal.png';
-import passwordImg from '../assets/img/projects/password-manager.png';
+import lmsImg from '../assets/img/projects/lms-portal.jpg';
+import passwordImg from '../assets/img/projects/password-manager.jpg';
 import swiftJavaImg from '../assets/img/swift.png';
-import eyeDocImg from '../assets/img/eye-doc.jpg';
+import eyeDocImg from '../assets/img/eye-doc-sm.jpg';
 
 export const projects = [
   {

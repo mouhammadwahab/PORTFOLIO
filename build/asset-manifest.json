@@ -1,34 +1,34 @@
 {
   "files": {
-    "main.css": "/static/css/main.56b32935.css",
-    "main.js": "/static/js/main.ed98735b.js",
-    "static/js/377.3a8dd0d2.chunk.js": "/static/js/377.3a8dd0d2.chunk.js",
+    "main.css": "/static/css/main.28952d33.css",
+    "main.js": "/static/js/main.efb9dfa4.js",
+    "static/js/377.cd62a754.chunk.js": "/static/js/377.cd62a754.chunk.js",
     "static/js/453.ace21015.chunk.js": "/static/js/453.ace21015.chunk.js",
-    "static/js/713.07296a7c.chunk.js": "/static/js/713.07296a7c.chunk.js",
-    "static/media/password-manager.png": "/static/media/password-manager.7ed09c9e38ff49b2d87b.png",
-    "static/media/shop-it.png": "/static/media/shop-it.1d2193daf197d2e18996.png",
-    "static/media/ai-sales.png": "/static/media/ai-sales.2c853211fcbcc94dad38.png",
-    "static/media/lms-portal.png": "/static/media/lms-portal.7cdbed4ed0522b5e3a7a.png",
-    "static/media/pos-system.png": "/static/media/pos-system.3481d73cb24b24cd8fc7.png",
-    "static/media/eye-doc.jpg": "/static/media/eye-doc.119449acab491993e95b.jpg",
-    "static/media/portrait-bust.png": "/static/media/portrait-bust.a65b2c4da1207ddb6bf7.png",
-    "static/media/portrait-full.png": "/static/media/portrait-full.a4cc15e96a858618b7e6.png",
-    "static/media/LOGO.png": "/static/media/LOGO.699847849edbe2085776.png",
+    "static/js/37.2af644ef.chunk.js": "/static/js/37.2af644ef.chunk.js",
     "static/media/conx logo.png": "/static/media/conx logo.b067e376f1a619267dcf.png",
     "static/media/wor-eats.jpg": "/static/media/wor-eats.ee88ae8e1681bb6ec138.jpg",
+    "static/media/pos-system.jpg": "/static/media/pos-system.bb2c40e9adc017fb0c95.jpg",
+    "static/media/ai-sales.jpg": "/static/media/ai-sales.5bb0884df4e93e46fbe6.jpg",
+    "static/media/lms-portal.jpg": "/static/media/lms-portal.29652033458755bcaf06.jpg",
+    "static/media/password-manager.jpg": "/static/media/password-manager.6ab61b18f552947dddc1.jpg",
+    "static/media/portrait-bust.jpg": "/static/media/portrait-bust.3161802e7d3e06923130.jpg",
+    "static/media/portrait-full.jpg": "/static/media/portrait-full.f06361a55d0772cb7909.jpg",
+    "static/media/swift-drive.jpg": "/static/media/swift-drive.6313efa9e5f081ae7cdc.jpg",
+    "static/media/eye-doc-sm.jpg": "/static/media/eye-doc-sm.717b804d3cb308ff2947.jpg",
+    "static/media/shop-it.jpg": "/static/media/shop-it.04bb627b74a112599a04.jpg",
     "static/media/fast-foodies.jpg": "/static/media/fast-foodies.48d59211fa4909074425.jpg",
     "static/media/smart-solar.png": "/static/media/smart-solar.f8a111d8db2c6372b921.png",
     "static/media/muslim-dating.png": "/static/media/muslim-dating.6dac1cdd4faa5e26fd2b.png",
     "static/media/swift.png": "/static/media/swift.e7dd5130a589b0e58101.png",
     "index.html": "/index.html",
-    "main.56b32935.css.map": "/static/css/main.56b32935.css.map",
-    "main.ed98735b.js.map": "/static/js/main.ed98735b.js.map",
-    "377.3a8dd0d2.chunk.js.map": "/static/js/377.3a8dd0d2.chunk.js.map",
+    "main.28952d33.css.map": "/static/css/main.28952d33.css.map",
+    "main.efb9dfa4.js.map": "/static/js/main.efb9dfa4.js.map",
+    "377.cd62a754.chunk.js.map": "/static/js/377.cd62a754.chunk.js.map",
     "453.ace21015.chunk.js.map": "/static/js/453.ace21015.chunk.js.map",
-    "713.07296a7c.chunk.js.map": "/static/js/713.07296a7c.chunk.js.map"
+    "37.2af644ef.chunk.js.map": "/static/js/37.2af644ef.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.56b32935.css",
-    "static/js/main.ed98735b.js"
+    "static/css/main.28952d33.css",
+    "static/js/main.efb9dfa4.js"
   ]
 }
