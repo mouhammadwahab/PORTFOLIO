@@ -7,6 +7,7 @@
   --paper: #ffffff;
   --teal: #14b8a6;
   --teal-deep: #0f766e;
+  --bottle-green: #0f5f52;
   --gold: #c4a35a;
   --text: #0b1220;
   --text-muted: #5b657a;
@@ -18,6 +19,7 @@
   --radius: 18px;
   --nav-h: 72px;
   --font-display: 'Syne', system-ui, sans-serif;
+  --font-brand: 'Outfit', system-ui, sans-serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
   --max: 1120px;
 }
@@ -142,12 +144,13 @@ textarea {
 }
 
 .btn-primary {
-  background: var(--teal);
-  color: var(--ink);
+  background: var(--bottle-green);
+  color: #f8fffc;
 }
 
 .btn-primary:hover {
-  background: #2dd4bf;
+  background: #0a4d43;
+  color: #fff;
 }
 
 .btn-ghost {
@@ -207,9 +210,7 @@ textarea {
     transition-duration: 0.01ms !important;
   }
 
-  .hero-orb,
   .about-orbit,
-  .hero-portrait-ring,
   .hero-scroll-hint span {
     animation: none !important;
   }

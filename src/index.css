@@ -197,10 +197,7 @@
   place-items: center;
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse 70% 60% at 70% 40%, rgba(20, 184, 166, 0.2), transparent 60%),
-    radial-gradient(ellipse 50% 40% at 15% 80%, rgba(196, 163, 90, 0.14), transparent 55%),
-    linear-gradient(160deg, #e8eef6 0%, #f7f9fc 42%, #d5e0ef 100%);
+  background: linear-gradient(160deg, #f4f7fb 0%, #ffffff 45%, #eef3f8 100%);
 }
 
 .hero-vignette {
@@ -209,71 +206,30 @@
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 80% 70% at 50% 45%, transparent 40%, rgba(11, 18, 32, 0.08) 100%);
+    radial-gradient(ellipse 80% 70% at 50% 45%, transparent 45%, rgba(11, 18, 32, 0.04) 100%);
 }
 
-.hero-orb {
+.hero-grid {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(40px);
+  inset: 0;
   z-index: 0;
   pointer-events: none;
-  animation: floatOrb 12s ease-in-out infinite;
-}
-
-.hero-orb--1 {
-  width: 280px;
-  height: 280px;
-  top: 18%;
-  right: 12%;
-  background: rgba(20, 184, 166, 0.28);
-}
-
-.hero-orb--2 {
-  width: 200px;
-  height: 200px;
-  bottom: 16%;
-  left: 8%;
-  background: rgba(196, 163, 90, 0.22);
-  animation-delay: -4s;
-}
-
-@keyframes floatOrb {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(18px, -24px) scale(1.08); }
-}
-
-.hero-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.hero-canvas canvas {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.hero-fallback {
-  position: absolute;
-  inset: 0;
+  opacity: 0.55;
   background:
     repeating-linear-gradient(
       90deg,
       transparent,
       transparent 48px,
-      rgba(11, 18, 32, 0.03) 48px,
-      rgba(11, 18, 32, 0.03) 49px
+      rgba(11, 18, 32, 0.045) 48px,
+      rgba(11, 18, 32, 0.045) 49px
     ),
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 48px,
-      rgba(11, 18, 32, 0.03) 48px,
-      rgba(11, 18, 32, 0.03) 49px
-    ),
-    radial-gradient(circle at 70% 35%, rgba(20, 184, 166, 0.2), transparent 45%);
-  z-index: 0;
+      rgba(11, 18, 32, 0.045) 48px,
+      rgba(11, 18, 32, 0.045) 49px
+    );
 }
 
 .hero-content {
@@ -285,14 +241,13 @@
   grid-template-columns: 1.15fr 0.85fr;
   gap: 2.5rem;
   align-items: center;
-  perspective: 1200px;
 }
 
 .hero-copy .brand {
-  font-family: var(--font-display);
+  font-family: var(--font-brand);
   font-weight: 800;
   font-size: clamp(2.6rem, 7vw, 4.6rem);
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   line-height: 0.95;
   margin: 0 0 1rem;
   color: var(--ink);
@@ -300,10 +255,10 @@
 
 .hero-copy .brand em {
   font-style: normal;
-  background: linear-gradient(120deg, var(--teal-deep), #0d9488 40%, var(--gold));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--bottle-green);
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
 }
 
 .hero-copy h1 {
@@ -346,30 +301,23 @@
   justify-self: end;
   position: relative;
   width: min(100%, 380px);
-  perspective: 1000px;
 }
 
 .hero-portrait-ring {
   position: absolute;
-  inset: -14px;
+  inset: -12px;
   border-radius: 36px 36px 90px 36px;
-  border: 1px solid rgba(20, 184, 166, 0.35);
-  animation: pulseRing 4s ease-in-out infinite;
+  border: 1px solid rgba(15, 95, 82, 0.28);
   pointer-events: none;
-}
-
-@keyframes pulseRing {
-  0%, 100% { opacity: 0.45; transform: scale(1); }
-  50% { opacity: 0.9; transform: scale(1.02); }
 }
 
 .hero-portrait img {
   width: 100%;
   border-radius: 28px 28px 80px 28px;
-  object-fit: cover;
+  object-fit: contain;
   aspect-ratio: 3/4;
-  box-shadow: 0 28px 60px rgba(11, 18, 32, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.54);
+  box-shadow: 0 20px 44px rgba(11, 18, 32, 0.1);
   position: relative;
   z-index: 1;
 }
@@ -377,13 +325,12 @@
 .hero-portrait::after {
   content: '';
   position: absolute;
-  inset: auto -12% -8% auto;
-  width: 46%;
-  height: 46%;
+  inset: auto -10% -6% auto;
+  width: 42%;
+  height: 42%;
   border-radius: 24px;
-  background: linear-gradient(145deg, rgba(20, 184, 166, 0.4), rgba(196, 163, 90, 0.28));
+  background: rgba(15, 95, 82, 0.12);
   z-index: 0;
-  filter: blur(4px);
 }
 
 .hero-scroll-hint {

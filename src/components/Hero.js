@@ -1,46 +1,21 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-scroll';
 import { BiDownload } from 'react-icons/bi';
 import { profile } from '../data/profile';
-import portraitBust from '../assets/img/portrait-bust.jpg';
-
-const HeroScene = lazy(() => import('./HeroScene'));
+import portraitBust from '../assets/img/portrait-bust-clear.png';
 
 const Hero = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
-  const [isMobile, setIsMobile] = useState(true);
-  const [load3d, setLoad3d] = useState(false);
 
   useEffect(() => {
     const mqMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const mqMobile = window.matchMedia('(max-width: 900px)');
-    const sync = () => {
-      setReduceMotion(mqMotion.matches);
-      setIsMobile(mqMobile.matches);
-    };
+    const sync = () => setReduceMotion(mqMotion.matches);
     sync();
     mqMotion.addEventListener('change', sync);
-    mqMobile.addEventListener('change', sync);
-    return () => {
-      mqMotion.removeEventListener('change', sync);
-      mqMobile.removeEventListener('change', sync);
-    };
+    return () => mqMotion.removeEventListener('change', sync);
   }, []);
-
-  // Defer 3D until after first paint / idle so the page opens fast
-  useEffect(() => {
-    if (reduceMotion || isMobile) return undefined;
-    const idle = window.requestIdleCallback
-      ? window.requestIdleCallback(() => setLoad3d(true), { timeout: 1800 })
-      : null;
-    const t = window.setTimeout(() => setLoad3d(true), 1200);
-    return () => {
-      if (idle && window.cancelIdleCallback) window.cancelIdleCallback(idle);
-      window.clearTimeout(t);
-    };
-  }, [reduceMotion, isMobile]);
 
   useEffect(() => {
     if (reduceMotion) return undefined;
@@ -50,22 +25,10 @@ const Hero = () => {
     return () => clearInterval(id);
   }, [reduceMotion]);
 
-  const show3d = load3d && !reduceMotion && !isMobile;
-
   return (
     <section id="hero" className="hero">
       <div className="hero-vignette" aria-hidden="true" />
-      <div className="hero-orb hero-orb--1" aria-hidden="true" />
-      <div className="hero-orb hero-orb--2" aria-hidden="true" />
-      <div className="hero-fallback" aria-hidden="true" />
-
-      {show3d && (
-        <div className="hero-canvas" aria-hidden="true">
-          <Suspense fallback={null}>
-            <HeroScene />
-          </Suspense>
-        </div>
-      )}
+      <div className="hero-grid" aria-hidden="true" />
 
       <div className="hero-content">
         <motion.div
@@ -118,7 +81,7 @@ const Hero = () => {
             src={portraitBust}
             alt={`${profile.name} professional portrait`}
             width={380}
-            height={507}
+            height={570}
             decoding="async"
             fetchPriority="high"
           />
