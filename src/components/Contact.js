@@ -6,6 +6,11 @@ import { profile } from '../data/profile';
 import SectionAura from './SectionAura';
 import { easeOut, staggerContainer, staggerItem } from '../motion';
 
+const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+const EMAILJS_AUTOREPLY_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_AUTOREPLY_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
 const Contact = () => {
   const form = useRef();
   const [loading, setLoading] = useState(false);
@@ -18,8 +23,19 @@ const Contact = () => {
     setErrorMessage('');
     setSuccessMessage('');
 
+    if (
+      !EMAILJS_SERVICE_ID ||
+      !EMAILJS_TEMPLATE_ID ||
+      !EMAILJS_AUTOREPLY_TEMPLATE_ID ||
+      !EMAILJS_PUBLIC_KEY
+    ) {
+      setLoading(false);
+      setErrorMessage('Contact form is not configured. Please try email instead.');
+      return;
+    }
+
     emailjs
-      .sendForm('service_bxlu5vx', 'template_szrjjnc', form.current, 'DCKC8BFfX7t0gQ_jE')
+      .sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form.current, EMAILJS_PUBLIC_KEY)
       .then(() => {
         const autoReplyParams = {
           user_name: form.current.user_name.value,
@@ -28,10 +44,10 @@ const Contact = () => {
           date: new Date().toLocaleString(),
         };
         return emailjs.send(
-          'service_bxlu5vx',
-          'template_cv5jt4d',
+          EMAILJS_SERVICE_ID,
+          EMAILJS_AUTOREPLY_TEMPLATE_ID,
           autoReplyParams,
-          'DCKC8BFfX7t0gQ_jE'
+          EMAILJS_PUBLIC_KEY
         );
       })
       .then(() => {
