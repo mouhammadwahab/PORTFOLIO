@@ -6,9 +6,8 @@ import conxImg from '../assets/img/conx logo.png';
 import aiSalesImg from '../assets/img/projects/ai-sales.jpg';
 import posImg from '../assets/img/projects/pos-system.jpg';
 import onlineStoreImg from '../assets/img/wor-eats.jpg';
-import datingImg from '../assets/img/muslim-dating.png';
+import datingImg from '../assets/img/projects/dating-app.jpg';
 import lmsImg from '../assets/img/projects/lms-portal.jpg';
-import passwordImg from '../assets/img/projects/password-manager.jpg';
 import swiftJavaImg from '../assets/img/swift.png';
 import eyeDocImg from '../assets/img/eye-doc-sm.jpg';
 
@@ -102,15 +101,6 @@ export const projects = [
     description:
       'Learning management system supporting online course delivery and management for instructors and students in one centralized portal.',
     image: lmsImg,
-  },
-  {
-    id: 'password',
-    title: 'Password Manager',
-    category: 'Mobile',
-    stack: ['Security', 'Flutter'],
-    description:
-      'Application for securely storing, organizing, and retrieving credentials for multiple accounts in one centralized tool.',
-    image: passwordImg,
   },
   {
     id: 'swift-java',

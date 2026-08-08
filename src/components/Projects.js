@@ -2,6 +2,8 @@ import React, { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { BiX } from 'react-icons/bi';
 import { projects, projectFilters } from '../data/projects';
+import SectionAura from './SectionAura';
+import { easeOut, staggerContainer, staggerItem } from '../motion';
 
 const Projects = () => {
   const [filter, setFilter] = useState('All');
@@ -14,34 +16,44 @@ const Projects = () => {
 
   return (
     <section id="projects" className="section section--alt">
+      <SectionAura />
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <motion.div
           className="section-heading"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.55, ease: easeOut }}
         >
           <span className="eyebrow">Portfolio</span>
           <h2>Selected projects</h2>
           <p>
-            Thirteen shipped and personal builds across Flutter, React, Next.js, Java, and AI automation —
+            Twelve shipped and personal builds across Flutter, React, Next.js, Java, and AI automation —
             from solar monitoring to multi-agent sales platforms.
           </p>
         </motion.div>
 
-        <div className="project-filters">
+        <motion.div
+          className="project-filters"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
           {projectFilters.map((item) => (
-            <button
+            <motion.button
               key={item}
               type="button"
               className={filter === item ? 'active' : ''}
               onClick={() => setFilter(item)}
+              variants={staggerItem}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.96 }}
             >
               {item}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
         <motion.div className="projects-grid" layout>
           <AnimatePresence mode="popLayout">
@@ -51,11 +63,12 @@ const Projects = () => {
                 type="button"
                 key={project.id}
                 className="project-card"
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.25, delay: Math.min(index * 0.02, 0.2) }}
-                whileHover={{ y: -4 }}
+                initial={{ opacity: 0, y: 20, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.28), ease: easeOut }}
+                whileHover={{ y: -8, transition: { duration: 0.25 } }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setActive(project)}
               >
                 <div className="project-card-media">
@@ -88,9 +101,10 @@ const Projects = () => {
           >
             <motion.div
               className="project-modal"
-              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              initial={{ opacity: 0, y: 32, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 12 }}
+              exit={{ opacity: 0, y: 16, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: easeOut }}
               onClick={(e) => e.stopPropagation()}
               role="dialog"
               aria-modal="true"
@@ -101,7 +115,16 @@ const Projects = () => {
                 <button type="button" className="modal-close" onClick={() => setActive(null)} aria-label="Close">
                   <BiX />
                 </button>
-                <div className="cat" style={{ color: 'var(--teal-deep)', fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                <div
+                  className="cat"
+                  style={{
+                    color: 'var(--teal-deep)',
+                    fontWeight: 700,
+                    fontSize: '0.75rem',
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                  }}
+                >
                   {active.category}
                 </div>
                 <h3>{active.title}</h3>

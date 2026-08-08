@@ -1,20 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-scroll';
-import { BiDownload } from 'react-icons/bi';
 import { profile } from '../data/profile';
-import portraitBust from '../assets/img/portrait-bust-clear.png';
+import portraitBust from '../assets/img/portrait-bust.png';
+import { easeOut } from '../motion';
+import HeroCodeField from './CodeField';
+
+const HeroScene = lazy(() => import('./HeroScene'));
 
 const Hero = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [allow3d, setAllow3d] = useState(false);
 
   useEffect(() => {
     const mqMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => setReduceMotion(mqMotion.matches);
+    const mqWide = window.matchMedia('(min-width: 861px)');
+    const sync = () => {
+      setReduceMotion(mqMotion.matches);
+      setAllow3d(!mqMotion.matches && mqWide.matches);
+    };
     sync();
     mqMotion.addEventListener('change', sync);
-    return () => mqMotion.removeEventListener('change', sync);
+    mqWide.addEventListener('change', sync);
+    return () => {
+      mqMotion.removeEventListener('change', sync);
+      mqWide.removeEventListener('change', sync);
+    };
   }, []);
 
   useEffect(() => {
@@ -28,53 +40,85 @@ const Hero = () => {
   return (
     <section id="hero" className="hero">
       <div className="hero-vignette" aria-hidden="true" />
-      <div className="hero-grid" aria-hidden="true" />
+      <motion.div
+        className="hero-grid"
+        aria-hidden="true"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.45 }}
+        transition={{ duration: 1.2 }}
+      />
+      <HeroCodeField variant="hero" />
+      {allow3d && (
+        <div className="hero-scene" aria-hidden="true">
+          <Suspense fallback={null}>
+            <HeroScene />
+          </Suspense>
+        </div>
+      )}
 
       <div className="hero-content">
         <motion.div
           className="hero-copy"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+          }}
         >
-          <div className="hero-roles" aria-live="polite">
+          <motion.div
+            className="hero-roles"
+            aria-live="polite"
+            variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } } }}
+          >
             <AnimatePresence mode="wait">
               <motion.span
                 key={profile.roles[roleIndex]}
-                initial={{ opacity: 0, y: 8 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.25 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.28 }}
               >
                 {profile.roles[roleIndex]}
               </motion.span>
             </AnimatePresence>
-          </div>
-          <p className="brand">
+          </motion.div>
+          <motion.p
+            className="brand"
+            variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: easeOut } } }}
+          >
             Muhammad <em>Wahab</em>
-          </p>
-          <h1>
+          </motion.p>
+          <motion.h1
+            variants={{ hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut } } }}
+          >
             {profile.title} — {profile.subtitle}
-          </h1>
-          <p className="lead">
+          </motion.h1>
+          <motion.p
+            className="lead"
+            variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut } } }}
+          >
             Shipping production Flutter &amp; full-stack JavaScript products — from Firebase mobile apps
             to multi-agent AI platforms — with a builder&apos;s mindset.
-          </p>
-          <div className="hero-ctas">
-            <Link to="projects" smooth offset={-70} duration={500} className="btn btn-primary">
-              View Work
-            </Link>
-            <a className="btn btn-ghost" href={profile.cvUrl} download>
-              <BiDownload /> Download CV
-            </a>
-          </div>
+          </motion.p>
+          <motion.div
+            className="hero-ctas"
+            variants={{ hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: easeOut } } }}
+          >
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+              <Link to="projects" smooth offset={-70} duration={500} className="btn btn-primary hero-cta-main">
+                View Work
+              </Link>
+            </motion.div>
+          </motion.div>
         </motion.div>
 
         <motion.div
           className="hero-portrait"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.1 }}
+          initial={{ opacity: 0, x: 36, scale: 0.96 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.2, ease: easeOut }}
+          whileHover={reduceMotion ? undefined : { y: -6, transition: { duration: 0.35 } }}
         >
           <div className="hero-portrait-ring" aria-hidden="true" />
           <img
@@ -88,9 +132,15 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      <div className="hero-scroll-hint" aria-hidden="true">
+      <motion.div
+        className="hero-scroll-hint"
+        aria-hidden="true"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.1, duration: 0.5 }}
+      >
         <span />
-      </div>
+      </motion.div>
     </section>
   );
 };

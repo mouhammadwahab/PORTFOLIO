@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-scroll';
+import { motion, AnimatePresence } from 'framer-motion';
 import { BiMenu, BiX, BiDownload } from 'react-icons/bi';
 import { FaGithub, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 import { profile } from '../data/profile';
@@ -34,7 +35,12 @@ const Navbar = () => {
   const close = () => setOpen(false);
 
   return (
-    <header className={`navbar ${scrolled || open ? 'scrolled' : ''} ${open ? 'open' : ''}`}>
+    <motion.header
+      className={`navbar ${scrolled || open ? 'scrolled' : ''} ${open ? 'open' : ''}`}
+      initial={{ y: -28, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div className="navbar-inner">
         <Link to="hero" smooth duration={500} className="nav-brand" onClick={close}>
           Muhammad <span>Wahab</span>
@@ -47,7 +53,7 @@ const Navbar = () => {
                 to={link.to}
                 spy
                 smooth
-                offset={-70}
+                offset={-90}
                 duration={500}
                 className="nav-link"
                 activeClass="active"
@@ -70,8 +76,14 @@ const Navbar = () => {
               <FaWhatsapp />
             </a>
           </div>
-          <a className="btn btn-primary nav-cv" href={profile.cvUrl} download>
-            <BiDownload /> CV
+          <a
+            className="btn btn-primary nav-cv"
+            href={profile.cvUrl}
+            download
+            title="Download Muhammad Wahab's CV (PDF)"
+            aria-label="Download CV as PDF"
+          >
+            <BiDownload /> Download CV
           </a>
           <button
             type="button"
@@ -84,34 +96,44 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="nav-drawer">
-        {links.map((link) => (
-          <Link
-            key={link.to}
-            to={link.to}
-            spy
-            smooth
-            offset={-70}
-            duration={500}
-            className="nav-link"
-            onClick={close}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="nav-drawer"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25 }}
           >
-            {link.label}
-          </Link>
-        ))}
-        <div className="nav-drawer-actions">
-          <a className="btn btn-primary" href={profile.cvUrl} download onClick={close}>
-            <BiDownload /> Download CV
-          </a>
-          <a href={profile.socials.github} target="_blank" rel="noreferrer" aria-label="GitHub">
-            <FaGithub size={22} />
-          </a>
-          <a href={profile.socials.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
-            <FaLinkedin size={22} />
-          </a>
-        </div>
-      </div>
-    </header>
+            {links.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                spy
+                smooth
+                offset={-90}
+                duration={500}
+                className="nav-link"
+                onClick={close}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="nav-drawer-actions">
+              <a className="btn btn-primary" href={profile.cvUrl} download onClick={close}>
+                <BiDownload /> Download CV
+              </a>
+              <a href={profile.socials.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+                <FaGithub size={22} />
+              </a>
+              <a href={profile.socials.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                <FaLinkedin size={22} />
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 

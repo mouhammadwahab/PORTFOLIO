@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { BiEnvelope, BiMap, BiPhone } from 'react-icons/bi';
 import emailjs from '@emailjs/browser';
 import { profile } from '../data/profile';
+import SectionAura from './SectionAura';
+import { easeOut, staggerContainer, staggerItem } from '../motion';
 
 const Contact = () => {
   const form = useRef();
@@ -45,13 +47,14 @@ const Contact = () => {
 
   return (
     <section id="contact" className="section">
-      <div className="container">
+      <SectionAura />
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <motion.div
           className="section-heading"
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
+          transition={{ duration: 0.55, ease: easeOut }}
         >
           <span className="eyebrow">Contact</span>
           <h2>Let&apos;s build something</h2>
@@ -64,11 +67,12 @@ const Contact = () => {
         <div className="contact-grid">
           <motion.div
             className="contact-info"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
             viewport={{ once: true }}
           >
-            <div className="contact-item">
+            <motion.div className="contact-item" variants={staggerItem} whileHover={{ y: -3 }}>
               <div className="icon">
                 <BiMap />
               </div>
@@ -76,8 +80,8 @@ const Contact = () => {
                 <h3>Location</h3>
                 <p>{profile.location}</p>
               </div>
-            </div>
-            <div className="contact-item">
+            </motion.div>
+            <motion.div className="contact-item" variants={staggerItem} whileHover={{ y: -3 }}>
               <div className="icon">
                 <BiPhone />
               </div>
@@ -89,8 +93,8 @@ const Contact = () => {
                   {profile.phoneAlt}
                 </p>
               </div>
-            </div>
-            <div className="contact-item">
+            </motion.div>
+            <motion.div className="contact-item" variants={staggerItem} whileHover={{ y: -3 }}>
               <div className="icon">
                 <BiEnvelope />
               </div>
@@ -100,17 +104,17 @@ const Contact = () => {
                   <a href={`mailto:${profile.email}`}>{profile.email}</a>
                 </p>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
           <motion.form
             ref={form}
             onSubmit={sendEmail}
             className="contact-form"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.05 }}
+            transition={{ duration: 0.55, ease: easeOut, delay: 0.08 }}
           >
             <div className="form-row">
               <label htmlFor="name-field">
@@ -137,9 +141,15 @@ const Contact = () => {
               {errorMessage}
               {successMessage}
             </div>
-            <button type="submit" className="btn btn-primary" disabled={loading}>
+            <motion.button
+              type="submit"
+              className="btn btn-primary"
+              disabled={loading}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+            >
               Send Message
-            </button>
+            </motion.button>
           </motion.form>
         </div>
       </div>

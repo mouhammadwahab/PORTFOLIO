@@ -4,18 +4,19 @@ import { BiDownload } from 'react-icons/bi';
 import { experience } from '../data/experience';
 import { profile } from '../data/profile';
 import SectionAura from './SectionAura';
+import { easeOut, staggerContainer, staggerItem } from '../motion';
 
 const Experience = () => {
   return (
     <section id="experience" className="section section--dark">
-      <SectionAura />
+      <SectionAura tone="dark" />
       <div className="container experience-container">
         <motion.div
           className="section-heading"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.55, ease: easeOut }}
         >
           <span className="eyebrow">Experience</span>
           <h2>Professional journey</h2>
@@ -30,10 +31,10 @@ const Experience = () => {
             <motion.article
               key={job.company}
               className="timeline-item"
-              initial={{ opacity: 0, x: -24 }}
+              initial={{ opacity: 0, x: -28 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.55, ease: easeOut }}
             >
               <div className="timeline-meta">
                 <span>{job.period}</span>
@@ -41,46 +42,49 @@ const Experience = () => {
               </div>
               <h3>{job.role}</h3>
               <h4>{job.company}</h4>
-              <ul>
-                {job.bullets.map((bullet, i) => (
-                  <motion.li
-                    key={bullet.slice(0, 40)}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.08 * i }}
-                  >
+              <motion.ul
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+              >
+                {job.bullets.map((bullet) => (
+                  <motion.li key={bullet.slice(0, 40)} variants={staggerItem}>
                     {bullet}
                   </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
             </motion.article>
           ))}
         </div>
 
-        <div className="education-row">
-          {profile.education.map((edu, i) => (
+        <motion.div
+          className="education-row"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
+          {profile.education.map((edu) => (
             <motion.div
               key={edu.school}
               className="edu-card"
-              initial={{ opacity: 0, y: 20, scale: 0.96 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: i * 0.08 }}
-              whileHover={{ y: -4, borderColor: 'rgba(20,184,166,0.45)' }}
+              variants={staggerItem}
+              whileHover={{ y: -5, borderColor: 'rgba(20,184,166,0.45)' }}
             >
               <h4>{edu.degree}</h4>
               <p>{edu.school}</p>
               <p>{edu.period}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <motion.div
           className="experience-actions"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.45 }}
         >
           <motion.a
             className="btn btn-ghost-light"

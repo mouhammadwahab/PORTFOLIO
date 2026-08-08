@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { BiChevronUp } from 'react-icons/bi';
 import './App.css';
 
@@ -14,13 +15,10 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
+  const [showTop, setShowTop] = useState(false);
+
   useEffect(() => {
-    const scrollTop = document.querySelector('.scroll-top');
-    const handleScroll = () => {
-      if (!scrollTop) return;
-      if (window.scrollY > 100) scrollTop.classList.add('active');
-      else scrollTop.classList.remove('active');
-    };
+    const handleScroll = () => setShowTop(window.scrollY > 100);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -50,9 +48,23 @@ function App() {
           </Routes>
         </main>
         <Footer />
-        <button type="button" className="scroll-top" onClick={toTop} aria-label="Scroll to top">
-          <BiChevronUp size={22} />
-        </button>
+        <AnimatePresence>
+          {showTop && (
+            <motion.button
+              type="button"
+              className="scroll-top active"
+              onClick={toTop}
+              aria-label="Scroll to top"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 12 }}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <BiChevronUp size={22} />
+            </motion.button>
+          )}
+        </AnimatePresence>
       </div>
     </Router>
   );
