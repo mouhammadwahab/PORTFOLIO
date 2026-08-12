@@ -7,7 +7,7 @@ import { profile } from '../data/profile';
 
 const links = [
   { to: 'hero', label: 'Home' },
-  { to: 'about', label: 'About' },
+  { to: 'expertise', label: 'Expertise' },
   { to: 'skills', label: 'Skills' },
   { to: 'experience', label: 'Experience' },
   { to: 'projects', label: 'Projects' },
